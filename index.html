@@ -36,11 +36,38 @@
           font-weight: normal;
         }
       }
+      pre {
+        visiblity: hidden;
+      }
+
+      .pre-div {
+        font-family: monospace;
+        white-space: nowrap;
+        text-align: left;
+        position: fixed;
+        top: 0;
+        left: 0;
+        visibility: hidden;
+      }
+
+      .pre-div.pre-div-canvas {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        visibility: visible;
+      }
+
+      .pre-div.with-transition span {
+        transition: all 500ms ease-in-out, opacity 200ms 200ms linear;
+        -webkit-transition: all 500ms ease-in-out, opacity 200ms 200ms linear;
+      }
     </style>
   </head>
   <body>
     <a href="https://twitter.com/edinburghjs" title="Follow @EdinburghJS on Twitter">
-  <pre>
+    <pre style='visibility: hidden'>
                ````````            `.::::-.
                MMMMMMM+         /ymMMMMMMMMMms:
                MMMMMMM+       +NMMMMMMMMMMMMMMMd:
@@ -61,6 +88,31 @@
   .sNMMMMMMMMMMMMMNo`        -sNMMMMMMMMMMMMMMMNo`
      :oydmNNNmdyo-              ./shdmNNNmdhs+-
       </pre>
+    <pre style='visibility: hidden'>
+                                                  
+                                                  
+                              `:+oo+:.       `      
+       -+                  `+dMMMMMMMMmo-:+sd:      
+       mMm+`              -mMMMMMMMMMMMMMMMy---     
+      .MMMMNs-           .NMMMMMMMMMMMMMMMNNNo      
+       mMMMMMMNy/.       +MMMMMMMMMMMMMMMMN+`       
+       -NMMMMMMMMMNdyo+/:sMMMMMMMMMMMMMMMMh         
+      `/-sNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMs         
+      `NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:         
+       :NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm          
+        .hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM-          
+          -ohNMMMMMMMMMMMMMMMMMMMMMMMMMM+           
+          yMMMMMMMMMMMMMMMMMMMMMMMMMMMM/            
+           /mMMMMMMMMMMMMMMMMMMMMMMMMm-             
+             -+ydNMMMMMMMMMMMMMMMMMNo`              
+              .+hMMMMMMMMMMMMMMMMNo`                
+     .///+oydNMMMMMMMMMMMMMMMMNy/                   
+      `:ohNMMMMMMMMMMMMMMMmho-                      
+           `-:/+ooooo+/:.`                          
+                                                    
+                                         
+    </pre>
     </a>
+<script src='app.js'></script>
   </body>
 </html>
