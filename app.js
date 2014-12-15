@@ -1,6 +1,7 @@
 var pre = document.querySelectorAll('pre');
 var js = pre[0];
 var twitter = pre[1];
+var canvasRect;
 
 function toCharArray(el) {
     var html = el.innerHTML;
@@ -10,7 +11,6 @@ function toCharArray(el) {
 }
 
 function replaceWithSpans(el) {
-    el.style.display = 'none';
     var chars = toCharArray(el);
     var div = document.createElement('div');
     div.setAttribute('class', 'pre-div');
@@ -32,7 +32,7 @@ function replaceWithSpans(el) {
         });
         div.appendChild(row);
     });
-    document.body.appendChild(div);
+    document.querySelector('a').appendChild(div);
     return div;
 }
 
@@ -54,7 +54,6 @@ var canvasDiv = twitterDiv.cloneNode(true);
   }
 });
 
-document.querySelector('a').appendChild(canvasDiv);
 
 function setCanvasElsTo(div) {
   var els = canvasDiv.querySelectorAll('[data-id]');
@@ -67,29 +66,41 @@ function setCanvasElsTo(div) {
         var offscreenX = -3000 - Math.random()*1000 + 'px';
         var offscreenY = -3000 - Math.random()*1000 + 'px';
 
-        el.style.left = '50%';
-        el.style.top = '50%';
+        el.style.transform = el.style.webkitTransform = 'translate(' + canvasRect.width/2 + 'px,' + canvasRect.height/2 + 'px)';
+        //el.style.left = '50%';
+        //el.style.top = '50%';
         el.style.opacity =  0;
     } else {
         var rect = target.getBoundingClientRect();
-        el.style.top = rect.top + 'px';
-        el.style.left = rect.left + 'px';
-        el.style.right = 'auto';
-        el.style.bottom = 'auto';
+        el.style.transform = 'translate(' + rect.left + 'px,' + rect.top + 'px)';
+        el.style.webkitTransform = 'translate(' + rect.left + 'px,' + rect.top + 'px)';
+        //el.style.top = rect.top + 'px';
+        //el.style.left = rect.left + 'px';
         el.style.opacity =  1;
     }
   });
 }
 
-setCanvasElsTo(jsDiv);
-canvasDiv.addEventListener('mouseenter', function () {
-  setCanvasElsTo(twitterDiv);
-});
-canvasDiv.addEventListener('mouseleave', function () {
-  setCanvasElsTo(jsDiv);
-});
-canvasDiv.setAttribute('class', 'pre-div pre-div-canvas');
-
+document.querySelector('a').appendChild(canvasDiv);
 setTimeout(function () {
-  canvasDiv.setAttribute('class', canvasDiv.getAttribute('class') + ' with-transition');
+    canvasRect = twitterDiv.getBoundingClientRect();
+    canvasDiv.style.width = canvasRect.width + 'px';
+    canvasDiv.style.height = canvasRect.height + 'px';
+
+    setCanvasElsTo(jsDiv);
+    canvasDiv.addEventListener('mouseenter', function () {
+        setCanvasElsTo(twitterDiv);
+    });
+    canvasDiv.addEventListener('touchstart', function (e) {
+        e.preventDefault();
+        setCanvasElsTo(twitterDiv);
+    });
+    canvasDiv.addEventListener('mouseleave', function () {
+        setCanvasElsTo(jsDiv);
+    });
+    canvasDiv.setAttribute('class', 'pre-div pre-div-canvas');
+
+    setTimeout(function () {
+      canvasDiv.setAttribute('class', canvasDiv.getAttribute('class') + ' with-transition');
+    }, 0);
 }, 0);
